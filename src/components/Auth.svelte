@@ -1,17 +1,38 @@
 <!-- Authentication component -->
 <script lang="ts">
+  import { base } from "$app/paths";
+  import { page } from "$app/stores";
   import { supabase } from "../supabase.ts";
-
-  let email = "";
+  import { goto } from "$app/navigation";
+  let email: string = "";
+  let passwd: string = "";
   let loading = false;
 
-  export const handleLogin = async () => {
-    try {
-      loading = true;
-      const { error } = await supabase.auth.signIn({ email });
-      if (error) throw error;
+  export let mode: string;
 
-      alert("Check your email for the login link!");
+  export const handleAuth = async () => {
+    try {
+      if (mode == "Login") {
+        loading = true;
+        const { error } = await supabase.auth.signIn({
+          email: email,
+          password: passwd,
+        });
+        if (error) throw error;
+        
+        goto($page.url.origin + base);
+      } else if (mode == "Signup"){
+        const { error } = await supabase.auth.signUp({
+          email: email,
+          password: passwd,
+        });
+        if (error) throw error;
+        goto($page.url.origin + base);
+        alert("Please check your email for a verification!");
+      }
+      else{
+        alert("Invalid authentication mode!");
+      }
     } catch (error) {
       console.error(error);
       alert(error.error_description || error.message);
@@ -19,15 +40,13 @@
       loading = false;
     }
   };
+
 </script>
 
-<h1 class="font-bold text-center text-2xl text-gray-800">Login</h1>
+<h1 class="font-bold text-center text-2xl text-gray-800">{mode}</h1>
 
-<p class="text-center mt-2">
-  Sign in via a special link with your email below.
-</p>
 
-<form on:submit|preventDefault={handleLogin} class="form my-6">
+<form on:submit|preventDefault={handleAuth} class="form my-6">
   <div class="flex flex-col mb-6">
     <label for="email" class="font-bold text-gray-800">Email</label>
     <input
@@ -37,12 +56,20 @@
       placeholder="Your email"
       bind:value={email}
     />
+    <input
+      type="password"
+      name="passwd"
+      class="rounded-lg shadow-sm p-2 border border-gray-200"
+      placeholder="Your password"
+      bind:value={passwd}
+    />
   </div>
   <div class="flex justify-end my-4">
     <button
       type="submit"
       class="rounded shadow-sm bg-teal-500 py-2 px-4 text-white"
-      disabled={loading}>Log In</button
+      disabled={loading}>{mode}</button
     >
   </div>
 </form>
+
