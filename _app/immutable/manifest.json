@@ -1,0 +1,90 @@
+{
+  ".svelte-kit/runtime/client/start.js": {
+    "file": "start-8d0ab887.js",
+    "src": ".svelte-kit/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_index-949137de.js",
+      "_index-3726ae03.js"
+    ],
+    "dynamicImports": [
+      "src/routes/__layout.svelte",
+      ".svelte-kit/runtime/components/error.svelte",
+      "src/routes/about.svelte",
+      "src/routes/auth.svelte",
+      "src/routes/index.svelte"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "pages/__layout.svelte-6e3ecba1.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-949137de.js",
+      "_AuthStore-14850bd3.js",
+      "_index-3726ae03.js"
+    ],
+    "css": [
+      "assets/pages/__layout.svelte-e39d1604.css"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "error.svelte-2639025a.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-949137de.js"
+    ]
+  },
+  "src/routes/about.svelte": {
+    "file": "pages/about.svelte-913b57dc.js",
+    "src": "src/routes/about.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-949137de.js"
+    ]
+  },
+  "src/routes/auth.svelte": {
+    "file": "pages/auth.svelte-60993f1f.js",
+    "src": "src/routes/auth.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-949137de.js",
+      "_AuthStore-14850bd3.js",
+      "_index-3726ae03.js"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "pages/index.svelte-8853c556.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-949137de.js",
+      "_index-3726ae03.js",
+      "_AuthStore-14850bd3.js"
+    ],
+    "css": [
+      "assets/pages/index.svelte-cf7f57f7.css"
+    ]
+  },
+  "_index-949137de.js": {
+    "file": "chunks/index-949137de.js"
+  },
+  "_index-3726ae03.js": {
+    "file": "chunks/index-3726ae03.js",
+    "imports": [
+      "_index-949137de.js"
+    ]
+  },
+  "_AuthStore-14850bd3.js": {
+    "file": "chunks/AuthStore-14850bd3.js",
+    "imports": [
+      "_index-3726ae03.js"
+    ]
+  }
+}
