@@ -45,7 +45,7 @@ import { page } from "$app/stores";
     }
   }
   // load the entries from the DB
-  if ($user) {
+  if (!!supabase.auth.user()) {
     loadFeedbacks(true);
   } else {
     loadFeedbacks();
@@ -68,7 +68,7 @@ import { page } from "$app/stores";
     placeholder="Search text"
   />
   <h3>List of Feedbacks</h3>
-  <div class="flex flex-row">
+  <div class="flex flex-row flex-wrap justify-around">
     {#each filteredFeedbacks as feedback}
       <Feedback {feedback} index={feedback.id} />
     {/each}

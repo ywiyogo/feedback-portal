@@ -21,7 +21,7 @@
         if (error) throw error;
         
         goto($page.url.origin + base);
-      } else if (mode == "Signup"){
+      } else if (mode == "Sign Up"){
         const { error } = await supabase.auth.signUp({
           email: email,
           password: passwd,

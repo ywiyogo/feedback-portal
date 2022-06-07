@@ -1,14 +1,11 @@
-<!-- FeedbackForm component describes the form to input a feedback. It has to be matched to the database
-      title
-      description
-      date
-
--->
+<!-- FeedbackForm component describes the form to input a feedback. -->
 <script lang="ts">
   import { DateInput } from "date-picker-svelte";
-  import { feedbackList, addFeedback } from "../stores/FeedbackStore.ts";
+  import { supabase } from "../supabase.ts";
+  import { feedbackList, addFeedback, loadFeedbacks } from "../stores/FeedbackStore.ts";
   import { user } from "../stores/AuthStore.ts";
 
+  // Database structure
   let feedback: any = {
     title: "",
     description: "",
@@ -23,6 +20,12 @@
     addFeedback(feedback);
     feedback = {};
     console.log("submitting");
+    // load the entries from the DB
+    if (!!supabase.auth.user()) {
+      loadFeedbacks(true);
+    } else {
+      loadFeedbacks();
+    }
   };
 </script>
 
@@ -46,21 +49,23 @@
       class="border p-2 shadow-sm rounded-lg border-gray-200 focus:outline-none focus:border-gray-500 "
     />
     <div class="flex flex-row">
-    <div class="basis-1/2 flex flex-col">
-      <label for="date" class=" font-bold my-2 text-gray-800">Date</label>
-      <DateInput bind:value={feedback.date} />
+      <div class="basis-1/2 flex flex-col">
+        <label for="date" class=" font-bold my-2 text-gray-800">Date</label>
+        <DateInput bind:value={feedback.date} />
+      </div>
+      <div class="basis-1/2 flex flex-col">
+        <label for="city" class="basis-1/2 font-bold my-2 text-gray-800"
+          >Where</label
+        >
+        <input
+          type="text"
+          name="city"
+          bind:value={feedback.city}
+          placeholder="City, Country"
+          class="border p-2 shadow-sm rounded-lg border-gray-200 focus:outline-none focus:border-gray-500 "
+        />
+      </div>
     </div>
-  <div class="basis-1/2 flex flex-col">
-    <label for="city" class="basis-1/2 font-bold my-2 text-gray-800">Where</label>
-    <input
-      type="text"
-      name="city"
-      bind:value={feedback.description}
-      placeholder="City, Country"
-      class="border p-2 shadow-sm rounded-lg border-gray-200 focus:outline-none focus:border-gray-500 "
-    />
-  </div>
-  </div>
     <label for="object_id" class="font-bold my-2 text-gray-800">Object ID</label
     >
     <input

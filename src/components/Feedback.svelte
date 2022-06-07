@@ -9,7 +9,7 @@
   export let feedback: any;
 </script>
 
-<div class="w-full bg-white p-2 m-3 border my-4">
+<div class="w-1/4 bg-white p-2 m-3 border">
   <div class="flex-col">
     <!-- Profile Card -->
     <div
@@ -63,7 +63,7 @@
     </div>
     <!-- End Profile Card -->
   </div>
-  <div class="mx-auto flex-auto">
+  <div class="mx-auto flex-auto my-3">
     <div class=" mb-2 text-md">{feedback.description}</div>
   </div>
 </div>

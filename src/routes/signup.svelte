@@ -6,5 +6,5 @@
 {#if $user}
   <p>You've already logged in successfully!</p>
 {:else}
-  <Auth mode="Signup" />
+  <Auth mode="Sign Up" />
 {/if}
