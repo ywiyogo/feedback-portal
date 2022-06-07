@@ -9,21 +9,21 @@
 </script>
 
 <nav class="flex flex-row justify-center">
-  <div class="text-2xl font-bold my-4 flex-auto w-3/4">
-    <a href={base} class="mx-4">Home</a>
-    <a href="{base}/about" class="mx-4">About</a>
+  <div class="text-2xl font-bold my-3 flex-auto">
+    <a href={base} class="mx-4 my-4 py-2">Home</a>
+    <a href="{base}/about" class="mx-4 my-4 py-2">About</a>
   </div>
-  <div class="my-4 flex-auto w-1/4 justify-end text-right">
+  <div class="flex-auto justify-end text-right">
     {#if $user}
       <button
         on:click={logout}
-        class="rounded shadow-sm py-2 px-4  text-white bg-teal-500 hover:bg-teal-700"
+        class="rounded shadow-sm my-2 py-2 px-4  text-white bg-teal-500 hover:bg-teal-700"
         >Logout</button
       >
     {:else}
       <a href="{base}/login">
         <button
-          class={`rounded shadow-sm py-2 px-4  text-white bg-teal-500 hover:bg-teal-700 ${
+          class={`rounded shadow-sm my-2 py-2 px-4  text-white bg-teal-500 hover:bg-teal-700 ${
             $page.routeId === "auth" ? "hidden" : ""
           }`}>Login</button
         >

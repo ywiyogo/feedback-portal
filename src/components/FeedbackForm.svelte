@@ -2,7 +2,7 @@
 <script lang="ts">
   import { DateInput } from "date-picker-svelte";
   import { supabase } from "../supabase.ts";
-  import { feedbackList, addFeedback, loadFeedbacks } from "../stores/FeedbackStore.ts";
+  import { addFeedback, loadFeedbacks } from "../stores/FeedbackStore.ts";
   import { user } from "../stores/AuthStore.ts";
 
   // Database structure

@@ -19,9 +19,9 @@
           password: passwd,
         });
         if (error) throw error;
-        
+
         goto($page.url.origin + base);
-      } else if (mode == "Sign Up"){
+      } else if (mode == "Sign Up") {
         const { error } = await supabase.auth.signUp({
           email: email,
           password: passwd,
@@ -29,8 +29,7 @@
         if (error) throw error;
         goto($page.url.origin + base);
         alert("Please check your email for a verification!");
-      }
-      else{
+      } else {
         alert("Invalid authentication mode!");
       }
     } catch (error) {
@@ -40,14 +39,12 @@
       loading = false;
     }
   };
-
 </script>
 
 <h1 class="font-bold text-center text-2xl text-gray-800">{mode}</h1>
 
-
 <form on:submit|preventDefault={handleAuth} class="form my-6">
-  <div class="flex flex-col mb-6">
+  <div class="flex flex-col mb-6 justify-around">
     <label for="email" class="font-bold text-gray-800">Email</label>
     <input
       type="email"
@@ -56,6 +53,7 @@
       placeholder="Your email"
       bind:value={email}
     />
+    <label for="passwd" class="font-bold text-gray-800">Password</label>
     <input
       type="password"
       name="passwd"
@@ -72,4 +70,3 @@
     >
   </div>
 </form>
-

@@ -19,6 +19,7 @@ export interface IFeedback {
 
 // Load and assign the fetched data to the global variable
 export const loadFeedbacks = async (isUser: boolean = false) => {
+	console.log("load FeedbackList")
 	if (isUser) {
 		const { data, error } = await supabase.from('feedbacks').select();
 		if (error) {
@@ -26,6 +27,8 @@ export const loadFeedbacks = async (isUser: boolean = false) => {
 		} else {
 			feedbackList.set(data);
 		}
+		console.log("Supabase data")
+		console.log(data)
 	} else {
 		const { data, error } = await supabase.from('feedbacks').select().eq('reviewed', true);
 		if (error) {
@@ -33,7 +36,12 @@ export const loadFeedbacks = async (isUser: boolean = false) => {
 		} else {
 			feedbackList.set(data);
 		}
+		console.log("data")
+		console.log(data)
 	}
+
+	console.log("feedbackList")
+	console.log(feedbackList)
 }
 
 
@@ -72,4 +80,16 @@ export const toggleFeedbackReviewed = async (id: any, currState: boolean) => {
 		}
 		return feedbackList;
 	});
+};
+
+export const getFeedbackById = async (id: string) => {
+	try {
+		let index = -1;
+		feedbackList.filter((feedback: any) =>
+			feedback.id.includes(id)
+		);
+	} catch (err) {
+		console.error(err);
+		return null;
+	}
 };

@@ -4,7 +4,6 @@
   import { user } from "../stores/AuthStore.ts";
   import { feedbackList, loadFeedbacks } from "../stores/FeedbackStore.ts";
   import Feedback from "../components/Feedback.svelte";
-import { page } from "$app/stores";
 
   user.set(supabase.auth.user());
   supabase.auth.onAuthStateChange((_, session: any) => {
