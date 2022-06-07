@@ -3,7 +3,6 @@
   import { page } from "$app/stores";
   import { supabase } from "../../supabase.ts";
 
-  let feedback_data: any = {};
   let id: string = "";
 
   // works but it shows an error "Uncaught (in promise) TypeError: ctx[0] is undefined"
@@ -31,21 +30,25 @@
       return console.error(error);
     } else {
       // the return data is an array
-      feedback_data = data[0];
+      return data[0];
     }
   }
-  getFeedback($page.params.id.substring(1));
+  let promise = getFeedback($page.params.id.substring(1));
 </script>
 
 <div class="flex flex-col items-center">
-  <h1 class="text-4xl text-center my-8 uppercase">{feedback_data.title}</h1>
-  <p>
-    Date: <strong>{feedback_data.date}</strong>
-    | City: {feedback_data.city}
-  </p>
-  <img class="card-image" src="" alt="" />
+  {#await promise}
+    <h1 class="text-4xl text-center my-8 uppercase">Loading ...</h1>
+  {:then feedback_data}
+    <h1 class="text-4xl text-center my-8 uppercase">{feedback_data.title}</h1>
+    <p>
+      Date: <strong>{feedback_data.date}</strong>
+      | City: {feedback_data.city}
+    </p>
+    <img class="card-image" src="" alt="" />
 
-  <p class="mx-3 lg:mx-10 bg-transparent mt-8">
-    {feedback_data.description}
-  </p>
+    <p class="mx-3 lg:mx-10 bg-transparent mt-8">
+      {feedback_data.description}
+    </p>
+  {/await}
 </div>
