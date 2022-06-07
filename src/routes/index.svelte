@@ -49,7 +49,6 @@
   } else {
     loadFeedbacks();
   }
-
 </script>
 
 <main>

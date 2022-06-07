@@ -34,7 +34,11 @@ export const loadFeedbacks = async (isUser: boolean = false) => {
 		if (error) {
 			return console.error(error);
 		} else {
+			console.log("Set list data")
+			console.log(feedbackList)
 			feedbackList.set(data);
+			console.log("Data set")
+			console.log(feedbackList)
 		}
 		console.log("data")
 		console.log(data)
@@ -84,10 +88,32 @@ export const toggleFeedbackReviewed = async (id: any, currState: boolean) => {
 
 export const getFeedbackById = async (id: string) => {
 	try {
-		let index = -1;
-		feedbackList.filter((feedback: any) =>
-			feedback.id.includes(id)
-		);
+		console.log("getFeedbackById")
+		if (feedbackList.length == 0) {
+			// get the data from DB if doesn't exist
+			console.log("get the data from DB if doesn't exist")
+			const { data, error } = await supabase.from('feedbacks').select().eq('id', id);
+			if (error) {
+				return console.error(error);
+			} else {
+				feedbackList.set(data);
+			}
+		}
+		console.log(feedbackList)
+		feedbackList.update((feedbackList: Writable) => {
+			let index = -1;
+			for (let i = 0; i < feedbackList.length; i++) {
+				if (feedbackList[i].id === id) {
+					index = i;
+					break;
+				}
+			}
+			if (index !== -1) {
+				feedbackList[index].completed = !feedbackList[index].completed;
+			}
+			return feedbackList;
+		});
+
 	} catch (err) {
 		console.error(err);
 		return null;

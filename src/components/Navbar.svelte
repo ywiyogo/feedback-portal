@@ -6,7 +6,12 @@
   const logout = () => {
     const { error } = supabase.auth.signOut();
   };
+
 </script>
+
+<svelte:head>
+	<title>Feedback portal {$page.routeId.charAt(0).toUpperCase()}{$page.routeId.slice(1)}</title>
+</svelte:head>
 
 <nav class="flex flex-row justify-center">
   <div class="text-2xl font-bold my-3 flex-auto">

@@ -1,34 +1,51 @@
 <script lang="ts">
   // first run the fetch feedback data
-  import { feedbackList, getFeedbackById } from "../../stores/FeedbackStore.ts";
   import { page } from "$app/stores";
+  import { supabase } from "../../supabase.ts";
 
-  let feedback_data: any[] = [];
+  let feedback_data: any = {};
   let id: string = "";
-  $: {
-    id = $page.params.id.substring(1);
-    if (id) {
-      const data = $feedbackList.filter((feedback: any) => {
-        return feedback.id.includes(id);
-      });
-      feedback_data = [...data];
+
+  // works but it shows an error "Uncaught (in promise) TypeError: ctx[0] is undefined"
+  // $: {
+  //   id = $page.params.id.substring(1);
+  //   if (id) {
+  //     getFeedbackById(id);
+  //     const data = $feedbackList.filter((feedback: any) => {
+  //       console.log("Test feedback");
+  //       console.log(feedback);
+  //       return feedback.id.includes(id);
+  //     });
+  //     console.log("Test data");
+  //     console.log(data);
+  //     feedback_data = data[0];
+  //   }
+  // }
+
+  async function getFeedback(id: string) {
+    const { data, error } = await supabase
+      .from("feedbacks")
+      .select()
+      .eq("id", id);
+    if (error) {
+      return console.error(error);
+    } else {
+      // the return data is an array
+      feedback_data = data[0];
     }
   }
+  getFeedback($page.params.id.substring(1));
 </script>
 
-<svelte:head>
-  <title>Feedback -</title>
-</svelte:head>
-
 <div class="flex flex-col items-center">
-  <h1 class="text-4xl text-center my-8 uppercase">{feedback_data[0].title}</h1>
+  <h1 class="text-4xl text-center my-8 uppercase">{feedback_data.title}</h1>
   <p>
-    Date: <strong>{feedback_data[0].date}</strong>
-    | City: {feedback_data[0].city}
+    Date: <strong>{feedback_data.date}</strong>
+    | City: {feedback_data.city}
   </p>
   <img class="card-image" src="" alt="" />
 
   <p class="mx-3 lg:mx-10 bg-transparent mt-8">
-    {feedback_data[0].description}
+    {feedback_data.description}
   </p>
 </div>
